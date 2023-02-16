@@ -1,0 +1,27 @@
+version: '3.5'
+services:
+  postgres-db:
+    image: postgres:13
+    container_name: postgres-db
+    environment:
+    - POSTGRES_DB=dbtest
+    - POSTGRES_USER=miafate
+    - POSTGRES_PASSWORD=123456
+    restart: always
+    ports:
+      - 6543:5432
+    # networks:
+    #   aliases:
+    #     - postgres-db
+    volumes:
+    - './postgres_data:/var/lib/postgresql/data'
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=miapurplefroot@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    ports:
+      - 80:80
+    depends_on:
+      - postgres-db
